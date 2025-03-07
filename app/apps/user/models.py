@@ -19,3 +19,17 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username}"
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    bio = models.TextField(max_length=255, blank=True, null=True)
+    avatar = models.ImageField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("Profile")
+        verbose_name_plural = _("Profiles")
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name} Profili"
+
